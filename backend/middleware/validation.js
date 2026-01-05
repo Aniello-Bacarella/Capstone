@@ -37,4 +37,11 @@ export const validateSoundUpload = (req, res, next) => {
   if (!allowedMimes.includes(mimetype)) {
     return res.status(400).json({ error: "Unsupported audio format" });
   }
+
+  //file size limit (10MB)
+
+  if (filesize > 10 * 1024 * 1024) {
+    return res.status(400).json({ error: "File size exceeds 10MB limit" });
+  }
+  next();
 };

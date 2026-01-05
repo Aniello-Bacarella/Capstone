@@ -8,3 +8,15 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
 ); 
 
+CREATE TABLE sounds (
+    id SERIAL PRIMARY KEY, 
+    user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+    title VARCHAR(255) NOT NULL, 
+    filename VARCHAR(255) NOT NULL, 
+    audio_data BYTEA NOT NULL,
+    mimetype VARCHAR(100) NOT NULL, 
+    filesize INTEGER NOT NULL, 
+    duration_ms INTEGER, 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+

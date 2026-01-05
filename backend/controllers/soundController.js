@@ -10,6 +10,8 @@ export const createSound = async (req, res, next) => {
       req.body;
     const userId = req.session.userId;
 
+    // convert base64 audio data to buffer for bytea storage
+
     const audioBuffer = Buffer.from(audio_data, "base64");
 
     const result = await client.query(

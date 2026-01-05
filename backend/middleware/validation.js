@@ -45,3 +45,20 @@ export const validateSoundUpload = (req, res, next) => {
   }
   next();
 };
+
+//board validation
+
+export const validateBoardInpit = (req, res, next) => {
+  const { title } = req.body;
+
+  if (!title) {
+    return res.status(400).json({ error: "Title is required." });
+  }
+
+  if (title.length > 255) {
+    return res
+      .status(400)
+      .json({ error: "Title exceeds 255 characters limit." });
+  }
+  next();
+};

@@ -1,5 +1,5 @@
 import { createClient } from "../db/connection.ks";
-import { hashPassword, comparePassword } from "../utils/hashPPassword.js";
+import { hashPassword, comparePassword } from "../utils/hashPassword.js";
 
 export const register = async (req, res, next) => {
   const client = createClient();

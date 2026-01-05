@@ -26,4 +26,15 @@ export const validateSoundUpload = (req, res, next) => {
   }
 
   // validate media type
+
+  const allowedMimes = [
+    "audio/mpeg",
+    "audio/mp3",
+    "audio/ogg",
+    "audio/webm",
+    "audio/mp4",
+  ];
+  if (!allowedMimes.includes(mimetype)) {
+    return res.status(400).json({ error: "Unsupported audio format" });
+  }
 };

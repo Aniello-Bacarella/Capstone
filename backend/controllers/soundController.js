@@ -37,3 +37,17 @@ export const createSound = async (req, res, next) => {
     await client.end();
   }
 };
+
+export const getSounds = async (req, res, next) => {
+  const client = createClient(); 
+
+  try {
+    await client.connect(); 
+    
+    const userId = req.session.userId; 
+    const { search } = req query; 
+
+    let query = `SELECT id, user_id, title, filename, mimetype, filesize, duration_ms, created_at FROM sounds WHERE user_id = $1`;
+    
+  }
+}

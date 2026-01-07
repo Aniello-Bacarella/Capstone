@@ -1,5 +1,5 @@
-import { createContext, useState, useContext, useEffect } from 'react';
-import { api } from '../services/api';
+import { createContext, useState, useContext, useEffect } from "react";
+import { api } from "../services/api";
 
 const AuthContext = createContext(null);
 
@@ -46,3 +46,21 @@ export const AuthProvider = ({ children }) => {
       return { success: false, error: err.message };
     }
   };
+
+  const logout = async () => {
+    try {
+      await api.logout();
+      setUser(null);
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
+  };
+
+  return (
+    <AuthContext.Provider
+      value={{ user, loading, error, register, login, logout }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+};

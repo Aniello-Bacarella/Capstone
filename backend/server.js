@@ -56,3 +56,5 @@ app.use((err, req, res, next) => {
 app.use((req, res) => {
   res.status(404).json({ error: "Route not found" });
 });
+
+app.listen(PORT, () => {});

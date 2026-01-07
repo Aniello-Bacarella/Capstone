@@ -1,5 +1,5 @@
 import express from "express";
-import * as soundsController from "../controllers/soundController.js";
+import * as soundsController from "../controllers/soundsController.js";
 import { requireAuth } from "../middleware/auth.js";
 import { validateSoundUpload } from "../middleware/validation.js";
 
@@ -10,5 +10,9 @@ router.use(requireAuth);
 
 router.post("/", validateSoundUpload, soundsController.createSound);
 router.get("/", soundsController.getSounds);
+router.get("/:id", soundsController.getSound);
+router.get("/:id/audio", soundsController.getAudioData);
+router.patch("/:id", soundsController.updateSound);
+router.delete("/:id", soundsController.deleteSound);
 
 export default router;

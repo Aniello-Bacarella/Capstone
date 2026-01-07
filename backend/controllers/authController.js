@@ -39,18 +39,24 @@ export const register = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  } finally {
+    await client.end();
   }
 };
 
 export const login = async (req, res, next) => {
+  const client = createClient();
+
   try {
+    await client.connect();
+
     const { email, password } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({ error: "Email and password required" });
     }
 
-    const result = await pool.query("SELECT * FROM users WHERE email = $1", [
+    const result = await client.query("SELECT * FROM users WHERE email = $1", [
       email,
     ]);
 
@@ -79,6 +85,8 @@ export const login = async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  } finally {
+    await client.end();
   }
 };
 
@@ -92,12 +100,16 @@ export const logout = (req, res) => {
 };
 
 export const getCurrentUser = async (req, res, next) => {
+  const client = createClient();
+
   try {
+    await client.connect();
+
     if (!req.session.userId) {
       return res.status(401).json({ error: "Not authenticated" });
     }
 
-    const result = await pool.query(
+    const result = await client.query(
       "SELECT id, email, display_name FROM users WHERE id = $1",
       [req.session.userId]
     );
@@ -109,5 +121,7 @@ export const getCurrentUser = async (req, res, next) => {
     res.json({ user: result.rows[0] });
   } catch (error) {
     next(error);
+  } finally {
+    await client.end();
   }
 };

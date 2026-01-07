@@ -4,11 +4,12 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import authRoutes from "./routes/auth.js";
+import soundsRoutes from "./routes/sounds.js";
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Middleware
 app.use(
@@ -33,6 +34,7 @@ app.use(
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/sounds", soundsRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

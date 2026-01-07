@@ -6,6 +6,7 @@ export const validateRegistration = (req, res, next) => {
   if (!email || !password || !display_name) {
     return res.status(400).json({ error: "Missing required fields" });
   }
+  next();
 };
 
 // sound validation

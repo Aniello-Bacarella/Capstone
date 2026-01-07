@@ -11,7 +11,6 @@ export const createSound = async (req, res, next) => {
     const userId = req.session.userId;
 
     // convert base64 audio data to buffer for bytea storage
-
     const audioBuffer = Buffer.from(audio_data, "base64");
 
     const result = await client.query(
@@ -57,18 +56,24 @@ export const getSounds = async (req, res, next) => {
 
     query += " ORDER BY created_at DESC";
 
-    const result = await pool.query(query, params);
+    const result = await client.query(query, params);
     res.json({ sounds: result.rows });
   } catch (error) {
     next(error);
+  } finally {
+    await client.end();
   }
 };
 
 export const getSound = async (req, res, next) => {
+  const client = createClient();
+
   try {
+    await client.connect();
+
     const { id } = req.params;
 
-    const result = await pool.query(
+    const result = await client.query(
       `SELECT id, user_id, title, filename, mimetype, filesize, duration_ms, created_at 
        FROM sounds 
        WHERE id = $1`,
@@ -82,15 +87,21 @@ export const getSound = async (req, res, next) => {
     res.json({ sound: result.rows[0] });
   } catch (error) {
     next(error);
+  } finally {
+    await client.end();
   }
 };
 
 export const getAudioData = async (req, res, next) => {
+  const client = createClient();
+
   try {
+    await client.connect();
+
     const { id } = req.params;
     const userId = req.session.userId;
 
-    const result = await pool.query(
+    const result = await client.query(
       "SELECT audio_data, mimetype, filename FROM sounds WHERE id = $1 AND user_id = $2",
       [id, userId]
     );
@@ -111,16 +122,21 @@ export const getAudioData = async (req, res, next) => {
     res.send(audio_data);
   } catch (error) {
     next(error);
+  } finally {
+    await client.end();
   }
 };
 
 export const updateSound = async (req, res, next) => {
+  const client = createClient();
   try {
+    await client.connect();
+
     const { id } = req.params;
     const { title } = req.body;
     const userId = req.session.userId;
 
-    const checkOwnership = await pool.query(
+    const checkOwnership = await client.query(
       "SELECT id FROM sounds WHERE id = $1 AND user_id = $2",
       [id, userId]
     );
@@ -133,7 +149,7 @@ export const updateSound = async (req, res, next) => {
       return res.status(400).json({ error: "Title is required" });
     }
 
-    const result = await pool.query(
+    const result = await client.query(
       `UPDATE sounds 
        SET title = $1 
        WHERE id = $2 
@@ -144,15 +160,21 @@ export const updateSound = async (req, res, next) => {
     res.json({ sound: result.rows[0] });
   } catch (error) {
     next(error);
+  } finally {
+    await client.end();
   }
 };
 
 export const deleteSound = async (req, res, next) => {
+  const client = createClient();
+
   try {
+    await client.connect();
+
     const { id } = req.params;
     const userId = req.session.userId;
 
-    const result = await pool.query(
+    const result = await client.query(
       "DELETE FROM sounds WHERE id = $1 AND user_id = $2 RETURNING id",
       [id, userId]
     );
@@ -164,5 +186,7 @@ export const deleteSound = async (req, res, next) => {
     res.json({ message: "Sound deleted successfully" });
   } catch (error) {
     next(error);
+  } finally {
+    await client.end();
   }
 };

@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
@@ -8,7 +7,6 @@ import { Layout } from "./components/Layout/Layout";
 import { HomePage } from "./pages/HomePage";
 import { SoundsPage } from "./pages/SoundsPage";
 import { BoardsPage } from "./pages/BoardsPage";
-import { BoardDetailPage } from "./pages/BoardDetailPage";
 import "./App.css";
 
 function App() {

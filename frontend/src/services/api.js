@@ -18,3 +18,29 @@ const fetchWithCredentials = async (url, options = {}) => {
 
   return data;
 };
+
+export const api = {
+  register: async (email, password, display_name) => {
+    return fetchWithCredentials(`${API_URL}/auth/register`, {
+      method: "POST",
+      body: JSON.stringify({ email, password, display_name }),
+    });
+  },
+
+  login: async (email, password) => {
+    return fetchWithCredentials(`${API_URL}/auth/login`, {
+      method: "POST",
+      body: JSON.stringify({ email, password }),
+    });
+  },
+
+  logout: async () => {
+    return fetchWithCredentials(`${API_URL}/auth/logout`, {
+      method: "POST",
+    });
+  },
+
+  getCurrentUser: async () => {
+    return fetchWithCredentials(`${API_URL}/auth/me`);
+  },
+};

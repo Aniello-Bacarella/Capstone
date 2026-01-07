@@ -39,15 +39,27 @@ export const createSound = async (req, res, next) => {
 };
 
 export const getSounds = async (req, res, next) => {
-  const client = createClient(); 
+  const client = createClient();
 
   try {
-    await client.connect(); 
-    
-    const userId = req.session.userId; 
-    const { search } = req.query; 
+    await client.connect();
+
+    const userId = req.session.userId;
+    const { search } = req.query;
 
     let query = `SELECT id, user_id, title, filename, mimetype, filesize, duration_ms, created_at FROM sounds WHERE user_id = $1`;
-    
+
+    const params = [userId];
+    if (search) {
+      query += " AND title ILIKE $2";
+      params.push(`%${search}%`);
+    }
+
+    query += " ORDER BY created_at DESC";
+
+    const result = await pool.query(query, params);
+    res.json({ sounds: result.rows });
+  } catch (error) {
+    next(error);
   }
-}
+};

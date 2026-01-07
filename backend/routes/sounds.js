@@ -10,9 +10,5 @@ router.use(requireAuth);
 
 router.post("/", validateSoundUpload, soundsController.createSound);
 router.get("/", soundsController.getSounds);
-router.get("/:id", soundsController.getSound);
-router.get("/:id/audio", soundsController.getAudioData);
-router.patch("/:id", soundsController.updateSound);
-router.delete("/:id", soundsController.deleteSound);
 
 export default router;

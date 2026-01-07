@@ -113,3 +113,36 @@ export const getAudioData = async (req, res, next) => {
     next(error);
   }
 };
+
+export const updateSound = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { title } = req.body;
+    const userId = req.session.userId;
+
+    const checkOwnership = await pool.query(
+      "SELECT id FROM sounds WHERE id = $1 AND user_id = $2",
+      [id, userId]
+    );
+
+    if (checkOwnership.rows.length === 0) {
+      return res.status(404).json({ error: "Sound not found or unauthorized" });
+    }
+
+    if (!title) {
+      return res.status(400).json({ error: "Title is required" });
+    }
+
+    const result = await pool.query(
+      `UPDATE sounds 
+       SET title = $1 
+       WHERE id = $2 
+       RETURNING id, user_id, title, filename, mimetype, filesize, duration_ms, created_at`,
+      [title, id]
+    );
+
+    res.json({ sound: result.rows[0] });
+  } catch (error) {
+    next(error);
+  }
+};

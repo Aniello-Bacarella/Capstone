@@ -84,3 +84,32 @@ export const getSound = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getAudioData = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const userId = req.session.userId;
+
+    const result = await pool.query(
+      "SELECT audio_data, mimetype, filename FROM sounds WHERE id = $1 AND user_id = $2",
+      [id, userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Sound not found or unauthorized" });
+    }
+
+    const { audio_data, mimetype, filename } = result.rows[0];
+
+    res.set({
+      "Content-Type": mimetype,
+      "Content-Length": audio_data.length,
+      "Content-Disposition": `inline; filename="${filename}"`,
+      "Accept-Ranges": "bytes",
+    });
+
+    res.send(audio_data);
+  } catch (error) {
+    next(error);
+  }
+};

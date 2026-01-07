@@ -23,10 +23,22 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-const register = async (email, password, display_name) => {
+  const register = async (email, password, display_name) => {
     setError(null);
     try {
       const data = await api.register(email, password, display_name);
+      setUser(data.user);
+      return { success: true };
+    } catch (err) {
+      setError(err.message);
+      return { success: false, error: err.message };
+    }
+  };
+
+  const login = async (email, password) => {
+    setError(null);
+    try {
+      const data = await api.login(email, password);
       setUser(data.user);
       return { success: true };
     } catch (err) {

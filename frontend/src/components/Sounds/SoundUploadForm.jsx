@@ -8,7 +8,7 @@ export const SoundUploadForm = ({ onSuccess }) => {
   const [error, setError] = useState("");
 
   return (
-    <form>
+    <form className="sound-upload-form">
       <h3>Upload New Sound</h3>
 
       <div className="form-group">

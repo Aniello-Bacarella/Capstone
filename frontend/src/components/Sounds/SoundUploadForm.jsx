@@ -44,6 +44,23 @@ export const SoundUploadForm = ({ onSuccess }) => {
       setError("Please select an audio file.");
       return;
     }
+
+    setLoading(true);
+
+    try {
+      await api.createSound(title, audioFile);
+
+      setTitle("");
+      setAudioFile(null);
+      const fileInput = document.getElementById("audioFile");
+      if (fileInput) fileInput.value = "";
+
+      onSuccess();
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

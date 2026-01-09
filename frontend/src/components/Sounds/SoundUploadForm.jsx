@@ -69,7 +69,13 @@ export const SoundUploadForm = ({ onSuccess }) => {
 
       <div className="form-group">
         <label htmlFor="audioFile">Audio File *</label>
-        <input id="audioFile" type="file" accept="audio/*" required />
+        <input
+          id="audioFile"
+          type="file"
+          accept="audio/*"
+          onChange={handleFileChange}
+          required
+        />
       </div>
 
       <div className="form-group">
@@ -83,8 +89,12 @@ export const SoundUploadForm = ({ onSuccess }) => {
         />
       </div>
 
-      <button type="submit" classname="btn-primary">
-        Upload Sound
+      <button
+        type="submit"
+        disabled={loading || !audioFile}
+        className="btn-primary"
+      >
+        {loading ? "Uploading..." : "Upload Sound"}
       </button>
     </form>
   );

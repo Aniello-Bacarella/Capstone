@@ -64,8 +64,10 @@ export const SoundUploadForm = ({ onSuccess }) => {
   };
 
   return (
-    <form className="sound-upload-form">
+    <form className="sound-upload-form" onSubmit={handleSubmit}>
       <h3>Upload New Sound</h3>
+
+      {error && <div className="error-message">{error}</div>}
 
       <div className="form-group">
         <label htmlFor="audioFile">Audio File *</label>

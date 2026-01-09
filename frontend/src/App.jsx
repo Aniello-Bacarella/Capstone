@@ -5,6 +5,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { SignupPage } from "./pages/SignupPage";
 import { Layout } from "./components/Layout/Layout";
 import "./App.css";
+import { SoundsPage } from "./pages/SoundsPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/sounds" element={<SoundsPage />} />
           <Route
             path="/"
             element={

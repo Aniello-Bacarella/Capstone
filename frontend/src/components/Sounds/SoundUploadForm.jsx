@@ -26,6 +26,10 @@ export const SoundUploadForm = ({ onSuccess }) => {
           required
         />
       </div>
+
+      <button type="submit" classname="btn-primary">
+        Upload Sound
+      </button>
     </form>
   );
 };

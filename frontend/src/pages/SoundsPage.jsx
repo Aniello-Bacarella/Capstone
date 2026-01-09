@@ -19,6 +19,8 @@ export const SoundsPage = () => {
           {showUploadForm ? "Cancel" : "Upload Sound"}
         </button>
       </header>
+      {showUploadForm && <SoundUploadForm onSuccess={handleSoundCreated} />}
+      <SoundList refreshKey={refreshKey} />
     </div>
   );
 };

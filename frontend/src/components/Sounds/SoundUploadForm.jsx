@@ -36,6 +36,16 @@ export const SoundUploadForm = ({ onSuccess }) => {
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+
+    if (!audioFile) {
+      setError("Please select an audio file.");
+      return;
+    }
+  };
+
   return (
     <form className="sound-upload-form">
       <h3>Upload New Sound</h3>

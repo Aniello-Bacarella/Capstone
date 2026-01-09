@@ -7,6 +7,13 @@ export const SoundUploadForm = ({ onSuccess }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const handleFileChange = (e) => {
+    const file = e.target.files(0);
+    if (file) {
+      setAudioFile(file);
+    }
+  };
+
   return (
     <form className="sound-upload-form">
       <h3>Upload New Sound</h3>

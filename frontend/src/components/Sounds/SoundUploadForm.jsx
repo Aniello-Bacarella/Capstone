@@ -15,6 +15,17 @@ export const SoundUploadForm = ({ onSuccess }) => {
         <label htmlFor="audioFile">Audio File *</label>
         <input id="audioFile" type="file" accept="audio/*" required />
       </div>
+
+      <div className="form-group">
+        <label htmlFor="title">Sound Title *</label>
+        <input
+          id="title"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+      </div>
     </form>
   );
 };

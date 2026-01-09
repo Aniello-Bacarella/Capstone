@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { SoundList } from "../components/Sounds/SoundList";
+import { SoundUploadForm } from "../components/Sounds/SoundUploadForm";
 
 export const SoundsPage = () => {
   const [showUploadForm, setShowUploadForm] = useState(false);

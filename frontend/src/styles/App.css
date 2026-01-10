@@ -83,29 +83,6 @@ body {
   font-size: 0.85rem;
 }
 
-.btn-primary {
-  width: 100%;
-  padding: 0.875rem;
-  background: #764ba2;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: transform 0.2s, opacity 0.2s;
-}
-
-.btn-primary:hover:not(:disabled) {
-  transform: translateY(-2px);
-}
-
-.btn-primary:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
 .error-message {
   background: #fee;
   color: #c33;

@@ -4,7 +4,7 @@ import { ProtectedRoute } from "./components/Auth/ProtectedRoute";
 import { LoginPage } from "./pages/LoginPage";
 import { SignupPage } from "./pages/SignupPage";
 import { Layout } from "./components/Layout/Layout";
-import "./App.css";
+import "/styles/main.css";
 import { SoundsPage } from "./pages/SoundsPage";
 
 function App() {

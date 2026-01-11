@@ -32,3 +32,14 @@
   color: #667eea;
   background: #f5f5f5;
 }
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-name {
+  color: #333;
+  font-weight: 500;
+}

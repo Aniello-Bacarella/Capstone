@@ -36,6 +36,12 @@ export const SoundCard = ({ sound, onDelete, onUpdate }) => {
     }
   };
 
+  const formatFileSize = (bytes) => {
+    if (!bytes) return "";
+    const mb = bytes / (1024 * 1024);
+    return mb < 1 ? `${(bytes / 1024).toFixed(1)} KB` : `${mb.toFixed(2)}MB`;
+  };
+
   return (
     <div className="sound-card">
       <button

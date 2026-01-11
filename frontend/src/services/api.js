@@ -90,4 +90,10 @@ export const api = {
   getAudioURL: (soundId) => {
     return `${API_URL}/sounds/${soundId}/audio`;
   },
+
+  //boards
+
+  getBoards: async () => {
+    return fetrchWithCredentials(`${API_URL}/boards`);
+  },
 };

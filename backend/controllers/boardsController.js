@@ -110,3 +110,31 @@ export const addSoundtoBoard = async (req, res, next) => {
     next(error);
   }
 };
+
+export const removeSoundFromBoard = async (req, res, next) => {
+  try {
+    const { boardId, soundId } = req.params;
+    const userId = req.session.userId;
+
+    const board = await client.query(
+      "SELECT id FROM boards WHERE id = $1 AND user_id = $2",
+      [boardId, userId]
+    );
+
+    if (board.rows.length === 0) {
+      return res.status(404).json({ error: "Board not found or unauthorized" });
+    }
+
+    const result = await client.query(
+      "DELETE FROM board_sounds WHERE board_id = $1 AND sound_id = $2 RETURNING id",
+      [boardId, soundId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Sound not in baord" });
+    }
+    res.json({ message: "Sound removed from board" });
+  } catch (error) {
+    next(error);
+  }
+};

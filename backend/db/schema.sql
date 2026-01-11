@@ -33,3 +33,14 @@ CREATE TABLE boards (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- board sounds 
+
+CREATE TABLE board_sounds (
+    id SERIAL PRIMARY KEY, 
+    board_id INTEGER REFERENCES boards(id) ON DELETE CASCADE,
+    sound_id INTEGER REFERENCES sounds(id) ON DELETE CASCADE, 
+    position INTEGER NOT NULL, 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    UNIQUE(board_id, sound_id)
+);
+

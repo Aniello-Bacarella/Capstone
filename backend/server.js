@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 
 import authRoutes from "./routes/auth.js";
 import soundsRoutes from "./routes/sounds.js";
+import boardsRoutes from "./routes/boards.js";
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ app.use(
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/sounds", soundsRoutes);
+app.use("/api/boards", boardsRoutes);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

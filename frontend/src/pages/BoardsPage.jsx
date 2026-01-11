@@ -42,5 +42,16 @@ export const BoardsPage = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    if (window.confirm("Delete this board?")) {
+      try {
+        await api.deleteBoard(id);
+        setBoards(boards.filter((b) => b.id !== id));
+      } catch (err) {
+        alert("Failed to delete board");
+      }
+    }
+  };
+
   return <div>BoardsPage</div>;
 };

@@ -9,6 +9,23 @@ export const SoundCard = ({ sound, onDelete, onUpdate }) => {
     return audioElement;
   });
 
+  const handlePlay = async () => {
+    if (isPlaying) {
+      audio.pause();
+      setIsPlaying(false);
+    } else {
+      try {
+        audio.src = api.getAudioURL(sound.id);
+        await audio.play();
+        setIsPlaying(true);
+        audio.onended = () => setIsPlaying(false);
+      } catch (err) {
+        console.error("play error", err);
+        alert("Failed to play sound");
+      }
+    }
+  };
+
   return (
     <div className="sound-card">
       <button

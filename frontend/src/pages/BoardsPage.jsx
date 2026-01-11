@@ -27,5 +27,20 @@ export const BoardsPage = () => {
     fetchBoards();
   }, []);
 
+  const handleCreateBoard = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      await api.createBoard(title, description, isPublic);
+      setTitle("");
+      setDescription("");
+      setIsPublic(false);
+      setShowCreateForm(false);
+      fetchBoards();
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return <div>BoardsPage</div>;
 };

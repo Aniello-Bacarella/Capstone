@@ -28,3 +28,16 @@ export const getBoards = async (req, res, next) => {
     next(error);
   }
 };
+
+export const updateBoard = async (req, res, next) => {
+    try {
+        const { id } = req.params; 
+        const { title, description, is_public } = req.body; 
+        const userId = req.session.userId; 
+
+        const checkOwnership = await client.query(
+            `SELECT id FROM boards WHERE id = $1 AND user_id = $2`, 
+            [id, userId]
+        );
+    }
+}

@@ -11,5 +11,21 @@ export const BoardsPage = () => {
   const [isPublic, setIsPublic] = useState(false);
   const [error, setError] = useState("");
 
+  const fetchBoards = async () => {
+    setLoading(true);
+    try {
+      const data = await api.getBoards();
+      setBoards(data.boards);
+    } catch (err) {
+      console.error("Failed to fetch boards:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchBoards();
+  }, []);
+
   return <div>BoardsPage</div>;
 };

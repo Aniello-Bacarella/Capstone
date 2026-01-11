@@ -28,5 +28,31 @@ export const SoundList = ({ refreshKey }) => {
     }
   };
 
-  return <div></div>;
+  const handleDelete = (id) => {
+    setSounds(sounds.filter(s => s.id !== id));
+  };
+
+  return (
+  
+  <div className= "sounds-list">
+    <div className="search-bar">
+        <input
+            type="text"
+            placeholder="search sounds"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            />
+  </div>
+
+  <div className="sounds-grid">
+    {sounds.map(sound => (
+        <SoundCard 
+        key={sound.id}
+        sound={sound}
+        onDelete={handleDelete}
+        onUpdate={handleUpdate}
+        />
+    ))}
+  </div>
+);
 };

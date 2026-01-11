@@ -110,16 +110,15 @@ export const addSoundToBoard = async (req, res, next) => {
     }
 
     const positionResult = await client.query(
-      "SELECT COALESCE(MAX(position),0) + 1 as next_position FROM board_sounds WHERE board_id =$1",
+      "SELECT COALESCE(MAX(position), 0) + 1 as next_position FROM board_sounds WHERE board_id = $1",
       [boardId]
     );
 
     const position = positionResult.rows[0].next_position;
 
     await client.query(
-      "INSERT INTO boards_sounds (board_id, sound_id, position) VALUES $1, $2, $3)"[
-        (boardId, soundId, position)
-      ]
+      "INSERT INTO board_sounds (board_id, sound_id, position) VALUES ($1, $2, $3)",
+      [(boardId, soundId, position)]
     );
 
     res.status(201).json({ message: "Sound added to board", position });

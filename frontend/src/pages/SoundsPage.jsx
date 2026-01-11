@@ -4,6 +4,12 @@ import { SoundUploadForm } from "../components/Sounds/SoundUploadForm";
 
 export const SoundsPage = () => {
   const [showUploadForm, setShowUploadForm] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const handleSoundCreated = () => {
+    setShowUploadForm(false);
+    setRefreshKey((prev) => prev + 1);
+  };
 
   return (
     <div className="sounds-page">

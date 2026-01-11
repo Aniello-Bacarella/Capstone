@@ -30,6 +30,7 @@ export const validateSoundUpload = (req, res, next) => {
 
   const allowedMimes = [
     "audio/mpeg",
+    "audio/wav",
     "audio/mp3",
     "audio/ogg",
     "audio/webm",

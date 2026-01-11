@@ -52,16 +52,32 @@ export const api = {
   },
 
   createSound: async (title, audioFile) => {
-    const base64Audio = await filetoBase64(audioFile);
+    const fileToBase64 = (file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const base64 = reader.result.split(",")[1];
+          resolve(base64);
+        };
+        reader.onerror = (error) => reject(error);
+      });
+    };
+
+    const audio_data = await fileToBase64(audioFile);
+
+    const payload = {
+      title,
+      filename: audioFile.name,
+      audio_data,
+      mimetype: audioFile.type,
+      filesize: audioFile.size,
+      duration_ms: null,
+    };
+
     return fetchWithCredentials(`${API_URL}/sounds`, {
       method: "POST",
-      body: JSON.stringify({
-        title,
-        filename: audioFile.name,
-        audio_data: base64Audio,
-        mimetype: audioFile.type,
-        filesize: audioFile.size,
-      }),
+      body: JSON.stringify(payload),
     });
   },
 

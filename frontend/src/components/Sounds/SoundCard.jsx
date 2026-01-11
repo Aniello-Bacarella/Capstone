@@ -26,6 +26,16 @@ export const SoundCard = ({ sound, onDelete, onUpdate }) => {
     }
   };
 
+  const handleDelete = async () => {
+    if (window.confirm(`Delete "${sound.title}"?`)) {
+      try {
+        await api.deleteSound(sound.id);
+      } catch (err) {
+        alert("Failed to delete sound");
+      }
+    }
+  };
+
   return (
     <div className="sound-card">
       <button

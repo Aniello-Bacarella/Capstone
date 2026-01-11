@@ -109,4 +109,10 @@ export const api = {
       method: "DELETE",
     });
   },
+  updateBoard: async (id, updates) => {
+    return fetchWithCredentials(`${API_URL}/boards/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(updates),
+    });
+  },
 };

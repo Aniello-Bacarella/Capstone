@@ -63,6 +63,11 @@ export const SoundList = ({ refreshKey }) => {
           />
         ))}
       </div>
+      {sounds.length === 0 && (
+        <div className="empty-state">
+          <p>No sounds found, upload your first sound!</p>
+        </div>
+      )}
     </div>
   );
 };

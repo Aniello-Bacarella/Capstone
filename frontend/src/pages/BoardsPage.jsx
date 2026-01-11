@@ -68,6 +68,7 @@ export const BoardsPage = () => {
           {showCreateForm ? "Cancel" : "Create Board"}
         </button>
       </header>
+
       {showCreateForm && (
         <form className="create-board-form" onSubmit={handleCreateBoard}>
           <h3>Create New Board</h3>
@@ -109,6 +110,32 @@ export const BoardsPage = () => {
             Create Board
           </button>
         </form>
+      )}
+
+      <div className="boards-grid">
+        {boards.map((board) => (
+          <div key={board.id} className="board-card">
+            <Link to={`/boards/${board.id}`} className="board-link">
+              <h3>{board.title}</h3>
+              {board.description && <p>{board.description}</p>}
+              <span className="board-meta">
+                {board.is_public ? "Public" : "Private"}
+              </span>
+            </Link>
+            <button
+              onClick={() => handleDelete(board.id)}
+              className="btn-icon btn-danger"
+              title="Delete board"
+            >
+              Delete
+            </button>
+          </div>
+        ))}
+      </div>
+      {boards.length === 0 && (
+        <div className="empty-state">
+          <p>No boards yet. Create your first board!</p>
+        </div>
       )}
     </div>
   );

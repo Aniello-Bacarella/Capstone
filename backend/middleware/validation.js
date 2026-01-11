@@ -50,7 +50,7 @@ export const validateSoundUpload = (req, res, next) => {
 
 //board validation
 
-export const validateBoardInpit = (req, res, next) => {
+export const validateBoardInput = (req, res, next) => {
   const { title } = req.body;
 
   if (!title) {

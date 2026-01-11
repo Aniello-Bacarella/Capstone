@@ -1,5 +1,9 @@
+import { createClient } from "../db/connection.js";
+
 export const createBoard = async (req, res, next) => {
+  const client = createClient();
   try {
+    await client.connect();
     const { title, description, is_public } = req.body;
     const userId = req.session.userId;
 

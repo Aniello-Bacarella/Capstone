@@ -15,11 +15,15 @@ export const createBoard = async (req, res, next) => {
     res.status(201).json({ board: result.rows[0] });
   } catch (error) {
     next(error);
+  } finally {
+    await client.end();
   }
 };
 
 export const getBoards = async (req, res, next) => {
+  const client = createClient();
   try {
+    await client.connect();
     const userId = req.session.userId;
 
     const result = await client.query(
@@ -30,11 +34,15 @@ export const getBoards = async (req, res, next) => {
     res.json({ boards: result.rows });
   } catch (error) {
     next(error);
+  } finally {
+    await client.end();
   }
 };
 
 export const updateBoard = async (req, res, next) => {
+  const client = createClient();
   try {
+    await client.connect();
     const { id } = req.params;
     const { title, description, is_public } = req.body;
     const userId = req.session.userId;
@@ -56,11 +64,15 @@ export const updateBoard = async (req, res, next) => {
     res.json({ board: result.rows[0] });
   } catch (error) {
     next(error);
+  } finally {
+    await client.end();
   }
 };
 
 export const deleteBoard = async (req, res, next) => {
+  const client = createClient();
   try {
+    await client.connect();
     const { id } = req.params;
     const userId = req.session.userId;
 
@@ -76,11 +88,15 @@ export const deleteBoard = async (req, res, next) => {
     res.json({ message: "Board deleted successfully" });
   } catch (error) {
     next(error);
+  } finally {
+    await client.end();
   }
 };
 
-export const addSoundtoBoard = async (req, res, next) => {
+export const addSoundToBoard = async (req, res, next) => {
+  const client = createClient();
   try {
+    await client.connect();
     const { boardId, soundId } = req.params;
     const userId = req.sessions.userId;
 
@@ -112,11 +128,15 @@ export const addSoundtoBoard = async (req, res, next) => {
       return res.status(404).json({ error: "Sound not found" });
     }
     next(error);
+  } finally {
+    await client.end();
   }
 };
 
 export const removeSoundFromBoard = async (req, res, next) => {
+  const client = createClient();
   try {
+    await client.connect();
     const { boardId, soundId } = req.params;
     const userId = req.session.userId;
 
@@ -135,10 +155,12 @@ export const removeSoundFromBoard = async (req, res, next) => {
     );
 
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Sound not in baord" });
+      return res.status(404).json({ error: "Sound not in board" });
     }
     res.json({ message: "Sound removed from board" });
   } catch (error) {
     next(error);
+  } finally {
+    await client.end();
   }
 };

@@ -22,7 +22,7 @@ export const SoundList = ({ refreshKey }) => {
       const data = await api.getSounds(params);
       setSounds(data.sounds);
     } catch (error) {
-      console.error("Error fetching sounds:".error);
+      console.error("Error fetching sounds:", error);
     } finally {
       setLoading(false);
     }

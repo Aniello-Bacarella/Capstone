@@ -1,0 +1,18 @@
+.sounds-page {
+  max-width: 1200px;
+  margin: -auto;
+  padding: 2rem 1rem;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.page-header h2 {
+  font-size: 1.8rem;
+  color: #333;
+  margin: 0;
+}

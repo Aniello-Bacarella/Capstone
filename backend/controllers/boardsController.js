@@ -12,15 +12,19 @@ export const createBoard = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+};
 
 export const getBoards = async (req, res, next) => {
-    try{
-        const userId = req.session.userId;
+  try {
+    const userId = req.session.userId;
 
-        const result = await client.query(
-            `SELECT * FROM boards WHERE user_id = $1 ORDER BY created_at DESC`,
-            [userId]
-        );
-    }
-}
+    const result = await client.query(
+      `SELECT * FROM boards WHERE user_id = $1 ORDER BY created_at DESC`,
+      [userId]
+    );
+
+    res.json({ boards: result.rows });
+  } catch (error) {
+    next(error);
+  }
 };

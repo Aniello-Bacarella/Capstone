@@ -44,7 +44,7 @@ export const api = {
     return fetchWithCredentials(`${API_URL}/auth/me`);
   },
 
-  // sounds api 
+  // sounds api
 
   getSounds: async (params = {}) => {
     const query = new URLSearchParams(params);
@@ -55,12 +55,13 @@ export const api = {
     const base64Audio = await filetoBase64(audioFile);
     return fetchWithCredentials(`${API_URL}/sounds`, {
       method: "POST",
-      body: JSON.stringify({ title,
+      body: JSON.stringify({
+        title,
         filename: audioFile.name,
-        audio_data: base64Audio
-        mimetype: audioFile.type
-        filesize: audioFile.size
-      })
+        audio_data: base64Audio,
+        mimetype: audioFile.type,
+        filesize: audioFile.size,
+      }),
     });
   },
 
@@ -68,5 +69,9 @@ export const api = {
     return fetchWithCredentials(`${API_URL}/sounds/${id}`, {
       method: "DELETE",
     });
-    },
-  }
+  },
+
+  getAudioURL: (soundId) => {
+    return `${API_URL}/sounds/${soundId}/audio`;
+  },
+};

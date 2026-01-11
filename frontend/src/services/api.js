@@ -64,4 +64,9 @@ export const api = {
     });
   },
 
-  deleteSound: async (id) =>
+  deleteSound: async (id) => {
+    return fetchWithCredentials(`${API_URL}/sounds/${id}`, {
+      method: "DELETE",
+    });
+    },
+  }

@@ -16,3 +16,24 @@
   color: #333;
   margin: 0;
 }
+
+.page-subtitle {
+  color: #666;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+.sound-upload-form,
+.create-board-form {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.sound-upload-form h3,
+.create-board-form h3 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+}

@@ -8,7 +8,7 @@ export const SoundUploadForm = ({ onSuccess }) => {
   const [error, setError] = useState("");
 
   const handleFileChange = (e) => {
-    const file = e.target.files(0);
+    const file = e.target.files[0];
     if (file) {
       const allowedTypes = [
         "audio/mpeg",
@@ -21,7 +21,7 @@ export const SoundUploadForm = ({ onSuccess }) => {
         setError(
           "Unsupported file type. Please upload MP3, WAV, OGG, or WEBM audio files.)"
         );
-        audioFile(null);
+        setAudioFile(null);
         return;
       }
 

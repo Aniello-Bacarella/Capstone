@@ -20,7 +20,7 @@ export const SoundsPage = () => {
         </div>
         <button
           className="btn-primary"
-          onClick={() => setShowUploadForm(!setShowUploadForm)}
+          onClick={() => setShowUploadForm(!showUploadForm)}
         >
           {showUploadForm ? "Cancel" : "Upload Sound"}
         </button>

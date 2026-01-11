@@ -103,4 +103,10 @@ export const api = {
       body: JSON.stringify({ title, description, is_public }),
     });
   },
+
+  deleteBoard: async (id) => {
+    return fetchWithCredentials(`${API_URL}/boards/${id}`, {
+      method: "DELETE",
+    });
+  },
 };

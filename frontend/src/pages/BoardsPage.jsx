@@ -53,5 +53,20 @@ export const BoardsPage = () => {
     }
   };
 
-  return <div>BoardsPage</div>;
+  return (
+    <div className="boards-page">
+      <header className="page-header">
+        <div>
+          <h2>My Boards</h2>
+          <p className="page-subtitle">Organize your sounds</p>
+        </div>
+        <button
+          className="btn-primary"
+          onClick={() => setShowCreateForm(!showCreateForm)}
+        >
+          {showCreateForm ? "Cancel" : "Create Board"}
+        </button>
+      </header>
+    </div>
+  );
 };

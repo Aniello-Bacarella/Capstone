@@ -74,3 +74,39 @@ export const deleteBoard = async (req, res, next) => {
     next(error);
   }
 };
+
+export const addSoundtoBoard = async (req, res, next) => {
+  try {
+    const { boardId, soundId } = req.params;
+    const userId = req.sessions.userId;
+
+    const board = await client.query(
+      "SELECT id FROM boards WHERE id = $1 AND user_id = $2",
+      [boardId, userId]
+    );
+
+    if (board.rows.length === 0) {
+      return res.status(404).json({ error: "Board not found or unauthorized" });
+    }
+
+    const positionResult = await client.query(
+      "SELECT COALESCE(MAX(position),0) + 1 as next_position FROM board_sounds WHERE board_id =$1",
+      [boardId]
+    );
+
+    const position = positionResult.rows[0].next_position;
+
+    await client.query(
+      "INSERT INTO boards_sounds (board_id, sound_id, position) VALUES $1, $2, $3)"[
+        (boardId, soundId, position)
+      ]
+    );
+
+    res.status(201).json({ message: "Sound added to board", position });
+  } catch (error) {
+    if (error.code === "23503") {
+      return res.status(404).json({ error: "Sound not found" });
+    }
+    next(error);
+  }
+};

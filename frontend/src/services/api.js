@@ -94,7 +94,7 @@ export const api = {
   //boards
 
   getBoards: async () => {
-    return fetrchWithCredentials(`${API_URL}/boards`);
+    return fetchWithCredentials(`${API_URL}/boards`);
   },
 
   createBoard: async (title, description, is_public) => {

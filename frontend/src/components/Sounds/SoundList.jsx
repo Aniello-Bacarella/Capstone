@@ -7,6 +7,10 @@ export const SoundList = ({ refreshKey }) => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
+  useEffect(() => {
+    fetchSounds();
+  }, [searchTerm, refreshKey]);
+
   // fetch sounds from the API
 
   const fetchSounds = async () => {

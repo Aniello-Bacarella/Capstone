@@ -21,13 +21,15 @@ function App() {
                 <Layout />
               </ProtectedRoute>
             }
-          ></Route>
+          >
+            <Route index element={<Navigate to="/sounds" replace />} />
+            <Route path="sounds" element={<SoundsPage />} />
+            <Route path="boards" element={<div>Boards Page</div>} />
+          </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
-          <Route path="/sounds" element={<SoundsPage />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
   );
 }
-
 export default App;

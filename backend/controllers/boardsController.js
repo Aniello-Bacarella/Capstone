@@ -54,3 +54,23 @@ export const updateBoard = async (req, res, next) => {
     next(error);
   }
 };
+
+export const deleteBoard = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const userId = req.session.userId;
+
+    const result = await client.query(
+      "DELETE FROM boards WHERE id = $1 AND user_id = $2 RETURNING id",
+      [id, userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Board not found or unauthorized" });
+    }
+
+    res.json({ message: "Board deleted successfully" });
+  } catch (error) {
+    next(error);
+  }
+};

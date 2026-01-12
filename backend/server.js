@@ -14,12 +14,6 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const PgStore = pgSession(session);
-const pgPool = new pg.Pool({
- connectionString: process.env.DATABASE_URL,
- ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-});
-
 // Middleware
 app.use(
   cors({
@@ -27,6 +21,12 @@ app.use(
     credentials: true,
   })
 );
+
+const PgStore = pgSession(session);
+const pgPool = new pg.Pool({
+ connectionString: process.env.DATABASE_URL,
+ ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+});
 
 // Increase payload size limit for large audio files (10MB)
 app.use(express.json({ limit: "10mb" }));

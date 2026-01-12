@@ -51,11 +51,44 @@ export const BoardDetailPage = () => {
 
   return (
     <div className="board-detail-page">
-      <header className="page-header">{}</header>
+      <header className="page-header">
+        <div>
+          <h2>title {board.title}</h2>
+          {board.description && (
+            <p className="page-subtitle">{board.description}</p>
+          )}
+        </div>
+        <button onClick={() => navigate("/boards")} className="btn-secondary">
+          ← Back to Boards
+        </button>
+      </header>
 
-      <div className="board-sounds-grid">{}</div>
+      <div className="board-sounds-grid">
+        {board.sounds.map((sound) => (
+          <div key={sound.id} className="board-sound-card">
+            <button className="play-btn" onClick={() => playSound(sound.id)}>
+              ▶
+            </button>
+            <div className="sound-info">
+              <h3>{sound.title}</h3>
+              <span className="filename">file{sound.filename}</span>
+            </div>
+            <button
+              onClick={() => removeSound(sound.id)}
+              className="btn-icon btn-danger"
+              title="Remove from board"
+            >
+              Remove
+            </button>
+          </div>
+        ))}
+      </div>
 
-      {}
+      {board.sounds.length === 0 && (
+        <div className="empty-state">
+          <p>No sounds on this board yet. Add some from your sounds library!</p>
+        </div>
+      )}
     </div>
   );
 };

@@ -9,6 +9,7 @@ router.use(requireAuth);
 
 router.post("/", validateBoardInput, boardsController.createBoard);
 router.get("/", boardsController.getBoards);
+router.get("/:id", boardsController.getBoard);
 router.patch("/:id", boardsController.updateBoard);
 router.delete("/:id", boardsController.deleteBoard);
 router.post("/:boardId/sounds/:soundId", boardsController.addSoundToBoard);

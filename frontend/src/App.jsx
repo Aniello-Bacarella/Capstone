@@ -27,7 +27,7 @@ function App() {
             <Route index element={<Navigate to="/sounds" replace />} />
             <Route path="sounds" element={<SoundsPage />} />
             <Route path="boards" element={<BoardsPage />} />
-            <Route path="boards/id" element={<BoardDetailPage />} />
+            <Route path="boards/:id" element={<BoardDetailPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

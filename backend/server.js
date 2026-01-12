@@ -2,6 +2,7 @@ import express from "express";
 import session from "express-session";
 import cors from "cors";
 import dotenv from "dotenv";
+import pg from "pg";
 
 import authRoutes from "./routes/auth.js";
 import soundsRoutes from "./routes/sounds.js";

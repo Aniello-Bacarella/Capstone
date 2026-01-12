@@ -6,7 +6,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { SignupPage } from "./pages/SignupPage";
 import { SoundsPage } from "./pages/SoundsPage";
 import { BoardsPage } from "./pages/BoardsPage";
-import { BoardDetailPage } from "./pages/BoardDetailsPage";
+import { BoardDetailsPage } from "./pages/BoardDetailsPage";
 import "../src/styles/main.css";
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
             <Route index element={<Navigate to="/sounds" replace />} />
             <Route path="sounds" element={<SoundsPage />} />
             <Route path="boards" element={<BoardsPage />} />
-            <Route path="boards/:id" element={<BoardDetailPage />} />
+            <Route path="boards/:id" element={<BoardDetailsPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

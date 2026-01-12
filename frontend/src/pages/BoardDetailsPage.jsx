@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { api } from "../services/api";
 
-export const BoardDetailPage = () => {
+export const BoardDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [board, setBoard] = useState(null);
+  const [board, setBoard] = useState({ title: "", sounds: [] });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export const BoardDetailPage = () => {
     setLoading(true);
     try {
       const data = await api.getBoard(id);
-      setBoard(data.board);
+      setBoard(data.boards);
     } catch (err) {
       console.error("Failed to fetch board:", err);
       navigate("/boards");

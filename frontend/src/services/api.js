@@ -1,5 +1,4 @@
 const API_URL =
-  import.meta.env.VITE_API_URL ||
   "postgresql://aniello:djgx3Wc0U4YcjJfwd8yenYMg65X8XpDC@dpg-d5i6tn6r433s73c5ktng-a.ohio-postgres.render.com/soundbytes_db";
 
 const fetchWithCredentials = async (url, options = {}) => {

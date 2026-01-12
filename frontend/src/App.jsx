@@ -6,7 +6,7 @@ import { LoginPage } from "./pages/LoginPage";
 import { SignupPage } from "./pages/SignupPage";
 import { SoundsPage } from "./pages/SoundsPage";
 import { BoardsPage } from "./pages/BoardsPage";
-import { BoardDetailPage } from "./pages/BoardDetailPage";
+import { BoardDetailPage } from "./pages/BoardDetailsPage";
 import "../src/styles/main.css";
 
 function App() {

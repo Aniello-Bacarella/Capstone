@@ -12,6 +12,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+const PgStore = pgSession(session);
+const pgPool = new pg.Pool({
+ connectionString: process.env.DATABASE_URL,
+ ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+});
+
 // Middleware
 app.use(
   cors({
@@ -26,15 +32,20 @@ app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
 // Session configuration
 app.use(
-  session({
-    secret: process.env.SESSION_SECRET || "your-secret-key-change-this",
-    resave: false,
-    saveUninitialized: false,
- cookie: {
-     secure: process.env.NODE_ENV === 'production', 
+ session({
+   store: new PgStore({
+     pool: pgPool,
+     tableName: 'session',
+     createTableIfMissing: true
+   }),
+   secret: process.env.SESSION_SECRET || "your-secret-key-change-this",
+   resave: false,
+   saveUninitialized: false,
+   cookie: {
+     secure: process.env.NODE_ENV === 'production',
      httpOnly: true,
-     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax', 
-     maxAge: 24 * 60 * 60 * 1000 // 24 hours
+     sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+     maxAge: 24 * 60 * 60 * 1000
    }
  })
 );

@@ -83,24 +83,26 @@ req.session.regenerate((err) => {
  // Set user data again after regeneration
  req.session.userId = user.id;
  req.session.email = user.email;
- req.session.save((err) => {
-   if (err) {
-     console.error('SESSION SAVE ERROR:', err);
-     return next(err);
-   }
-   console.log('=== LOGIN SUCCESS ===');
-   console.log('Session saved, ID:', req.sessionID);
-   console.log('Session data:', req.session);
-   console.log('Cookie will be:', req.session.cookie);
-   res.json({
-     message: "Login successful",
-     user: {
-       id: user.id,
-       email: user.email,
-       display_name: user.display_name,
-     },
-   });
+req.session.save((err) => {
+ if (err) {
+   console.error('SESSION SAVE ERROR:', err);
+   return next(err);
+ }
+ console.log('=== LOGIN SUCCESS ===');
+ console.log('Session saved, ID:', req.sessionID);
+ console.log('Session data:', req.session);
+ // Manually set cookie header
+ const cookieValue = `sessionId=${req.sessionID}; Path=/; HttpOnly; Secure; SameSite=None; Max-Age=86400`;
+ res.setHeader('Set-Cookie', cookieValue);
+ res.json({
+   message: "Login successful",
+   user: {
+     id: user.id,
+     email: user.email,
+     display_name: user.display_name,
+   },
  });
+});
 });
  } catch (error) {
     next(error);

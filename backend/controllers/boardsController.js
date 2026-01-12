@@ -39,6 +39,51 @@ export const getBoards = async (req, res, next) => {
   }
 };
 
+export const getBoard = async (req, res, next) => {
+  const client = createClient();
+  try {
+    const { id } = req.params;
+    const userId = req.session.userId;
+
+    const result = await client.query(
+      `
+      SELECT 
+        b.*,
+        COALESCE(
+          json_agg(
+            json_build_object(
+              'id', s.id,
+              'title', s.title,
+              'filename', s.filename,
+              'mimetype', s.mimetype,
+              'filesize', s.filesize,
+              'duration_ms', s.duration_ms,
+              'position', bs.position
+            ) ORDER BY bs.position
+          ) FILTER (WHERE s.id IS NOT NULL),
+          '[]'
+        ) as sounds
+      FROM boards b
+      LEFT JOIN board_sounds bs ON b.id = bs.board_id
+      LEFT JOIN sounds s ON bs.sound_id = s.id
+      WHERE b.id = $1 AND (b.user_id = $2 OR b.is_public = true)
+      GROUP BY b.id
+    `,
+      [id, userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Board not found or unauthorized" });
+    }
+
+    res.json({ board: result.rows[0] });
+  } catch (error) {
+    next(error);
+  } finally {
+    await client.end();
+  }
+};
+
 export const updateBoard = async (req, res, next) => {
   const client = createClient();
   try {

@@ -86,6 +86,7 @@ export const login = async (req, res, next) => {
         display_name: user.display_name,
       },
     });
+    });
   } catch (error) {
     next(error);
   } finally {

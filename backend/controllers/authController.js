@@ -72,24 +72,34 @@ export const login = async (req, res, next) => {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    req.session.userId = user.id;
-    req.session.email = user.email;
-   req.session.save((err) => {
-   if (err) {
-   console.error('SESSION SAVE ERROR:', err);
+  req.session.userId = user.id;
+req.session.email = user.email;
+// Regenerate session to force new cookie
+req.session.regenerate((err) => {
+ if (err) {
+   console.error('SESSION REGENERATE ERROR:', err);
    return next(err);
  }
-  console.log('=== LOGIN SUCCESS ===');
-  console.log('Session saved, ID:', req.sessionID);
-  console.log('Session data:', req.session);
-  console.log('Cookie will be:', req.session.cookie);
-  res.json({
-   message: "Login successful",
-   user: {
-     id: user.id,
-     email: user.email,
-     display_name: user.display_name,
-   },
+ // Set user data again after regeneration
+ req.session.userId = user.id;
+ req.session.email = user.email;
+ req.session.save((err) => {
+   if (err) {
+     console.error('SESSION SAVE ERROR:', err);
+     return next(err);
+   }
+   console.log('=== LOGIN SUCCESS ===');
+   console.log('Session saved, ID:', req.sessionID);
+   console.log('Session data:', req.session);
+   console.log('Cookie will be:', req.session.cookie);
+   res.json({
+     message: "Login successful",
+     user: {
+       id: user.id,
+       email: user.email,
+       display_name: user.display_name,
+     },
+   });
  });
 });
  } catch (error) {

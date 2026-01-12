@@ -52,6 +52,28 @@ app.use(
  })
 );
 
+// Test endpoint to verify session works
+app.get('/api/test-session', (req, res) => {
+ console.log('TEST SESSION - Before set');
+ console.log('Session ID:', req.sessionID);
+ console.log('Session:', req.session);
+ req.session.test = 'hello';
+ req.session.save((err) => {
+   if (err) {
+     console.error('TEST SESSION SAVE ERROR:', err);
+     return res.status(500).json({ error: err.message });
+   }
+   console.log('TEST SESSION - After save');
+   console.log('Session ID:', req.sessionID);
+   console.log('Session:', req.session);
+   res.json({
+     message: 'Session test',
+     sessionID: req.sessionID,
+     session: req.session
+   });
+ });
+});
+
 // Debug middleware
 app.use((req, res, next) => {
  console.log('=== REQUEST ===');

@@ -52,6 +52,21 @@ app.use(
  })
 );
 
+// Debug middleware
+app.use((req, res, next) => {
+ console.log('=== REQUEST ===');
+ console.log('URL:', req.url);
+ console.log('Method:', req.method);
+ console.log('Session ID:', req.sessionID);
+ console.log('Session data:', req.session);
+ next();
+});
+
+// Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/sounds", soundsRoutes);
+app.use("/api/boards", boardsRoutes);
+
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/sounds", soundsRoutes);

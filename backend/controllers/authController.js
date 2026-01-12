@@ -74,20 +74,25 @@ export const login = async (req, res, next) => {
 
     req.session.userId = user.id;
     req.session.email = user.email;
-    req.session.save((err) => {
-     if (err) {
-       return next(err);
-     }
-    res.json({
-      message: "Login successful",
-      user: {
-        id: user.id,
-        email: user.email,
-        display_name: user.display_name,
-      },
-    });
-    });
-  } catch (error) {
+   req.session.save((err) => {
+   if (err) {
+   console.error('SESSION SAVE ERROR:', err);
+   return next(err);
+ }
+  console.log('=== LOGIN SUCCESS ===');
+  console.log('Session saved, ID:', req.sessionID);
+  console.log('Session data:', req.session);
+  console.log('Cookie will be:', req.session.cookie);
+  sres.json({
+   message: "Login successful",
+   user: {
+     id: user.id,
+     email: user.email,
+     display_name: user.display_name,
+   },
+ });
+});
+ } catch (error) {
     next(error);
   } finally {
     await client.end();

@@ -74,7 +74,10 @@ export const login = async (req, res, next) => {
 
     req.session.userId = user.id;
     req.session.email = user.email;
-
+    req.session.save((err) => {
+     if (err) {
+       return next(err);
+     }
     res.json({
       message: "Login successful",
       user: {

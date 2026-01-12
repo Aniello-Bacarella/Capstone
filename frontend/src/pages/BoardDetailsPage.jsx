@@ -37,4 +37,25 @@ export const BoardDetailPage = () => {
       alert("Failed to play sound");
     }
   };
+
+  const removeSound = async (soundId) => {
+    if (window.confirm("Remove this sound from the board?")) {
+      try {
+        await api.removeSoundFromBoard(id, soundId);
+        fetchBoard();
+      } catch (err) {
+        alert("Failed to remove sound");
+      }
+    }
+  };
+
+  return (
+    <div className="board-detail-page">
+      <header className="page-header">{}</header>
+
+      <div className="board-sounds-grid">{}</div>
+
+      {}
+    </div>
+  );
 };

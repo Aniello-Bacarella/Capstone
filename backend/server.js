@@ -1,5 +1,6 @@
 import express from "express";
 import session from "express-session";
+import pgSession from "connect-pg-simple"
 import cors from "cors";
 import dotenv from "dotenv";
 import pg from "pg";

@@ -25,4 +25,16 @@ export const BoardDetailPage = () => {
       setLoading(false);
     }
   };
+
+  const playSound = async (soundId) => {
+    try {
+      const audio = new Audio();
+      audio.crossOrigin = "use-credentials";
+      audio.src = api.getAudioUrl(soundId);
+      await audio.play();
+    } catch (err) {
+      console.error("Play error:", err);
+      alert("Failed to play sound");
+    }
+  };
 };

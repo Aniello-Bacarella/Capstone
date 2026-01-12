@@ -53,7 +53,7 @@ export const BoardDetailPage = () => {
     <div className="board-detail-page">
       <header className="page-header">
         <div>
-          <h2>title {board.title}</h2>
+          <h2>{board.title}</h2>
           {board.description && (
             <p className="page-subtitle">{board.description}</p>
           )}

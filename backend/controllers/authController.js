@@ -83,7 +83,7 @@ export const login = async (req, res, next) => {
   console.log('Session saved, ID:', req.sessionID);
   console.log('Session data:', req.session);
   console.log('Cookie will be:', req.session.cookie);
-  sres.json({
+  res.json({
    message: "Login successful",
    user: {
      id: user.id,
